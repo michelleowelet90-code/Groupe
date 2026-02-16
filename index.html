@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>La Passerelle · ESN d'excellence</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a192f;
+            --primary-light: #112240;
+            --secondary: #64ffda;
+            --secondary-light: #9efff0;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #0a192f;
+            --gray: #8892b0;
+            --gray-light: #ccd6f6;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== TYPOGRAPHIE MOBILE FIRST ========== */
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.3rem; }
+        p { font-size: 1rem; }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        @media (min-width: 768px) {
+            .section-title::after {
+                width: 80px;
+                height: 4px;
+            }
+        }
+
+        /* ========== HEADER MOBILE FIRST ========== */
+        .header {
+            background: rgba(10, 25, 47, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (min-width: 768px) {
+            .logo a {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .logo a {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* MENU BURGER - VERSION MOBILE */
+        .burger {
+            display: block;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .burger {
+                display: none;
+            }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(10, 25, 47, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 5rem 1.5rem 2rem;
+            transition: 0.3s ease-in-out;
+            z-index: 1000;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .nav.active {
+            right: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .nav {
+                position: static;
+                width: auto;
+                height: auto;
+                max-width: none;
+                background: transparent;
+                backdrop-filter: none;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-list {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+
+        .nav-list a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(100,255,218,0.1);
+        }
+
+        .nav-list a.active {
+            color: var(--secondary);
+        }
+
+        @media (min-width: 1024px) {
+            .nav-list a {
+                border-bottom: none;
+                padding: 0.3rem 0;
+            }
+        }
+
+        /* ========== HERO AVEC IMAGE DE FOND ========== */
+        .hero {
+            position: relative;
+            background-image: url('https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.85);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            width: 100%;
+        }
+
+        .hero-title {
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        @media (min-width: 768px) {
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            .hero-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            .hero-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* BOUTONS MOBILE */
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        @media (min-width: 768px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+                max-width: 400px;
+            }
+            .btn {
+                width: auto;
+                min-width: 160px;
+            }
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-color: var(--secondary);
+        }
+
+        .btn-outline {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* STATS MOBILE */
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+        }
+
+        @media (min-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+            .stat-label {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* ========== FEATURES MOBILE FIRST ========== */
+        .features {
+            padding: 3rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            .features {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+            .features {
+                padding: 5rem 0;
+            }
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: rgba(100,255,218,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        @media (min-width: 768px) {
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .feature-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+        }
+
+        /* ========== CARROUSEL MOBILE FIRST ========== */
+        .carousel-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .carousel-slide {
+            display: none;
+            position: relative;
+        }
+
+        .carousel-slide.active-slide {
+            display: block;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-slide img {
+                height: 350px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .carousel-slide img {
+                height: 450px;
+            }
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(10,25,47,0.9), transparent);
+            color: white;
+        }
+
+        .carousel-caption h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .carousel-caption p {
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-caption {
+                padding: 1.5rem;
+            }
+            .carousel-caption h3 {
+                font-size: 1.3rem;
+            }
+            .carousel-caption p {
+                display: block;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .carousel-caption h3 {
+                font-size: 1.5rem;
+            }
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        .carousel-dots {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .dot {
+                width: 10px;
+                height: 10px;
+                margin: 0 4px;
+            }
+        }
+
+        .dot.active-dot {
+            background: var(--secondary);
+        }
+
+        /* ========== EXPERTISES MOBILE FIRST ========== */
+        .expertises {
+            padding: 3rem 0;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .expertise-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .expertise-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .expertise-card {
+            background: var(--light);
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .expertise-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+        }
+
+        .expertise-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(100,255,218,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .expertise-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .expertise-card h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .expertise-card p {
+            color: var(--gray);
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .expertise-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+            .expertise-card p {
+                display: block;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ========== FOOTER MOBILE FIRST ========== */
+        .footer {
+            background: #0a1a2f;
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1.5fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-about p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .footer h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-contact p {
+            color: var(--gray-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray-light);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">La Passerelle</a>
+            </div>
+            <button class="burger" id="burger" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="active">Accueil</a></li>
+                    <li><a href="presentation.html">Présentation</a></li>
+                    <li><a href="expertise-reseaux.html">Réseaux</a></li>
+                    <li><a href="expertise-donnees.html">Analyse données</a></li>
+                    <li><a href="expertise-programmation.html">Programmation</a></li>
+                    <li><a href="expertise-bdd.html">Bases de données</a></li>
+                    <li><a href="expertise-securite.html">Sécurité</a></li>
+                    <li><a href="actualites.html">Actualités</a></li>
+                    <li><a href="recrutement.html">Recrutement</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION AVEC IMAGE DE FOND -->
+        <section class="hero">
+            <div class="container hero-content">
+                <h1 class="hero-title">Groupe La Passerelle</h1>
+                <p class="hero-subtitle">ESN · Innovation · Excellence</p>
+                <p class="hero-text">L'expertise technique au service de votre transformation numérique.</p>
+                <div class="hero-buttons">
+                    <a href="presentation.html" class="btn btn-primary">Découvrir</a>
+                    <a href="contact.html" class="btn btn-outline">Contact</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Expertises</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Experts</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">120+</span>
+                        <span class="stat-label">Clients</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Nos engagements</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Expertise plurielle</h3>
+                        <p>6 domaines techniques couverts par des consultants passionnés.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Sécurité avant tout</h3>
+                        <p>Audits, cybersécurité, protection des données sensibles.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Data driven</h3>
+                        <p>Big data, BI, analyse statistique pour vos décisions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARROUSEL SECTION -->
+        <section class="carousel-section">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Ils nous font confiance</h2>
+                <div class="carousel-container">
+                    <div class="carousel-slide active-slide">
+                        <img src="https://images.pexels.com/photos/1181359/pexels-photo-1181359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Équipe en réunion">
+                        <div class="carousel-caption">
+                            <h3>Transformation digitale</h3>
+                            <p>Accompagnement d'un acteur majeur</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Développement">
+                        <div class="carousel-caption">
+                            <h3>Développement agile</h3>
+                            <p>Refonte complète du SI</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.pexels.com/photos/3861961/pexels-photo-3861961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Data">
+                        <div class="carousel-caption">
+                            <h3>Data & IA</h3>
+                            <p>Plateforme Big Data</p>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active-dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERTISES SECTION -->
+        <section class="expertises">
+            <div class="container">
+                <h2 class="section-title">Nos expertises</h2>
+                <div class="expertise-grid">
+                    <a href="expertise-reseaux.html" class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-network-wired"></i></div>
+                        <div>
+                            <h3>Réseaux</h3>
+                            <p>Installation, configuration, maintenance</p>
+                        </div>
+                    </a>
+                    <a href="expertise-donnees.html" class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div>
+                            <h3>Analyse données</h3>
+                            <p>Statistiques, Big Data, BI</p>
+                        </div>
+                    </a>
+                    <a href="expertise-programmation.html" class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-code"></i></div>
+                        <div>
+                            <h3>Programmation</h3>
+                            <p>Web, mobile, logiciel</p>
+                        </div>
+                    </a>
+                    <a href="expertise-bdd.html" class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-database"></i></div>
+                        <div>
+                            <h3>Bases de données</h3>
+                            <p>SQL/NoSQL, modélisation</p>
+                        </div>
+                    </a>
+                    <a href="expertise-securite.html" class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-lock"></i></div>
+                        <div>
+                            <h3>Sécurité</h3>
+                            <p>Audit, cybersécurité</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <a href="index.html">La Passerelle</a>
+                    </div>
+                    <p>ESN de référence depuis 2018.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Expertises</h4>
+                    <ul class="footer-links">
+                        <li><a href="expertise-reseaux.html">Réseaux</a></li>
+                        <li><a href="expertise-donnees.html">Analyse données</a></li>
+                        <li><a href="expertise-programmation.html">Programmation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Entreprise</h4>
+                    <ul class="footer-links">
+                        <li><a href="presentation.html">Présentation</a></li>
+                        <li><a href="actualites.html">Actualités</a></li>
+                        <li><a href="recrutement.html">Recrutement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Paris</p>
+                    <p><i class="fas fa-phone-alt"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-envelope"></i> contact@groupe-passerelle.fr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 La Passerelle</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Burger
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('nav');
+        const navLinks = document.querySelectorAll('.nav-list a');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            const icon = burger.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const icon = burger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Carrousel
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+            slides.forEach(slide => slide.classList.remove('active-slide'));
+            dots.forEach(dot => dot.classList.remove('active-dot'));
+            slides[slideIndex].classList.add('active-slide');
+            dots[slideIndex].classList.add('active-dot');
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => { slideIndex--; showSlide(slideIndex); });
+            nextBtn.addEventListener('click', () => { slideIndex++; showSlide(slideIndex); });
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slideIndex = index;
+                showSlide(slideIndex);
+            });
+        });
+
+        setInterval(() => { slideIndex++; showSlide(slideIndex); }, 5000);
+    </script>
+</body>
+</html>
