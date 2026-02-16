@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Programmation · La Passerelle ESN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a192f;
+            --primary-light: #112240;
+            --secondary: #64ffda;
+            --secondary-light: #9efff0;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #0a192f;
+            --gray: #8892b0;
+            --gray-light: #ccd6f6;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== TYPOGRAPHIE MOBILE FIRST ========== */
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.3rem; }
+        p { font-size: 1rem; }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        @media (min-width: 768px) {
+            .section-title::after {
+                width: 80px;
+                height: 4px;
+            }
+        }
+
+        /* ========== HEADER MOBILE FIRST ========== */
+        .header {
+            background: rgba(10, 25, 47, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (min-width: 768px) {
+            .logo a {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .logo a {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* MENU BURGER - VERSION MOBILE */
+        .burger {
+            display: block;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .burger {
+                display: none;
+            }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(10, 25, 47, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 5rem 1.5rem 2rem;
+            transition: 0.3s ease-in-out;
+            z-index: 1000;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .nav.active {
+            right: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .nav {
+                position: static;
+                width: auto;
+                height: auto;
+                max-width: none;
+                background: transparent;
+                backdrop-filter: none;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-list {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+
+        .nav-list a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(100,255,218,0.1);
+        }
+
+        .nav-list a.active {
+            color: var(--secondary);
+        }
+
+        @media (min-width: 1024px) {
+            .nav-list a {
+                border-bottom: none;
+                padding: 0.3rem 0;
+            }
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            background: linear-gradient(135deg, #0a192f 0%, #1e3a5f 100%);
+            padding: 3rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        @media (min-width: 768px) {
+            .page-hero {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .page-hero {
+                padding: 6rem 0;
+            }
+        }
+
+        .page-hero h1 {
+            margin-bottom: 0.8rem;
+        }
+
+        .page-hero p {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        @media (min-width: 768px) {
+            .page-hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ========== PRESENTATION SECTION ========== */
+        .presentation-section {
+            padding: 3rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .presentation-section {
+                padding: 4rem 0;
+            }
+        }
+
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .presentation-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                align-items: center;
+            }
+        }
+
+        .presentation-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            order: -1;
+        }
+
+        @media (min-width: 1024px) {
+            .presentation-image {
+                order: 0;
+            }
+        }
+
+        .presentation-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .presentation-content h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .presentation-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .presentation-content p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .features-list i {
+            color: var(--secondary);
+            font-size: 1rem;
+            width: 20px;
+        }
+
+        /* ========== SERVICES SECTION ========== */
+        .services-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .service-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: rgba(100,255,218,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* ========== TECHNOLOGIES SECTION ========== */
+        .technologies-section {
+            padding: 3rem 0;
+        }
+
+        .technologies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .technologies-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .technologies-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .technologie-card {
+            background: var(--light);
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .technologie-logo i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .technologie-card h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .technologie-card p {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        /* ========== METHODOLOGIE SECTION ========== */
+        .methodologie-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: white;
+        }
+
+        .methodologie-section .section-title {
+            color: white;
+        }
+
+        .methodologie-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .methodologie-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .methodologie-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .methodologie-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .methodologie-number {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 1rem;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        @media (min-width: 768px) {
+            .methodologie-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        .methodologie-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .methodologie-item p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* ========== CAS CLIENTS SECTION ========== */
+        .cas-clients-section {
+            padding: 3rem 0;
+        }
+
+        .cas-clients-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .cas-clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .cas-client-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: var(--light);
+            border-radius: 12px;
+        }
+
+        @media (min-width: 1024px) {
+            .cas-client-card {
+                padding: 1.5rem;
+            }
+        }
+
+        .cas-client-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(100,255,218,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .cas-client-content h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .cas-client-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cas-client-tag {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--secondary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 2px solid var(--secondary);
+        }
+
+        @media (min-width: 768px) {
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            .cta-button {
+                padding: 1rem 2.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* ========== FOOTER MOBILE FIRST ========== */
+        .footer {
+            background: #0a1a2f;
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1.5fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-about p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .footer h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-contact p {
+            color: var(--gray-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray-light);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">La Passerelle</a>
+            </div>
+            <button class="burger" id="burger" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="presentation.html">Présentation</a></li>
+                    <li><a href="expertise-reseaux.html">Réseaux</a></li>
+                    <li><a href="expertise-donnees.html">Analyse données</a></li>
+                    <li><a href="expertise-programmation.html" class="active">Programmation</a></li>
+                    <li><a href="expertise-bdd.html">Bases de données</a></li>
+                    <li><a href="expertise-securite.html">Sécurité</a></li>
+                    <li><a href="actualites.html">Actualités</a></li>
+                    <li><a href="recrutement.html">Recrutement</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>Programmation</h1>
+                <p>Développement web, mobile, logiciel sur-mesure. Des applications robustes et performantes.</p>
+            </div>
+        </section>
+
+        <!-- PRESENTATION SECTION -->
+        <section class="presentation-section">
+            <div class="container">
+                <div class="presentation-grid">
+                    <div class="presentation-content">
+                        <h2>Software craftsmanship</h2>
+                        <p>Nous concevons des applications sur mesure, robustes et maintenables. Notre approche "craft" met l'accent sur la qualité du code.</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Développement web (React, Angular, Vue, Node.js)</li>
+                            <li><i class="fas fa-check-circle"></i> Applications mobiles (iOS, Android, Flutter)</li>
+                            <li><i class="fas fa-check-circle"></i> Logiciels d'entreprise (C#, Java, Python)</li>
+                            <li><i class="fas fa-check-circle"></i> APIs et microservices</li>
+                            <li><i class="fas fa-check-circle"></i> Cloud (AWS, Azure, GCP)</li>
+                        </ul>
+                    </div>
+                    <div class="presentation-image">
+                        <img src="https://images.pexels.com/photos/1181672/pexels-photo-1181672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Développement logiciel">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section class="services-section">
+            <div class="container">
+                <h2 class="section-title">Nos expertises</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-globe"></i></div>
+                        <h3>Web</h3>
+                        <p>Sites, applications web complexes, e-commerce, PWA.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>Mobile</h3>
+                        <p>Apps natives iOS/Android, hybrides (React Native, Flutter).</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud & DevOps</h3>
+                        <p>Infrastructure as code, conteneurs, CI/CD.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-code-branch"></i></div>
+                        <h3>APIs & Microservices</h3>
+                        <p>RESTful, GraphQL, architecture microservices.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Logiciels</h3>
+                        <p>Applications métier, ERP, CRM sur mesure.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-vial"></i></div>
+                        <h3>Tests & Qualité</h3>
+                        <p>Tests automatisés, TDD, revues de code.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECHNOLOGIES SECTION -->
+        <section class="technologies-section">
+            <div class="container">
+                <h2 class="section-title">Stack technique</h2>
+                <div class="technologies-grid">
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-react"></i></div>
+                        <h3>React</h3>
+                        <p>Web</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-angular"></i></div>
+                        <h3>Angular</h3>
+                        <p>Web</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-vuejs"></i></div>
+                        <h3>Vue.js</h3>
+                        <p>Web</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-node"></i></div>
+                        <h3>Node.js</h3>
+                        <p>Backend</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-python"></i></div>
+                        <h3>Python</h3>
+                        <p>Django, FastAPI</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-java"></i></div>
+                        <h3>Java</h3>
+                        <p>Spring</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fas fa-database"></i></div>
+                        <h3>SQL/NoSQL</h3>
+                        <p>PostgreSQL, MongoDB</p>
+                    </div>
+                    <div class="technologie-card">
+                        <div class="technologie-logo"><i class="fab fa-docker"></i></div>
+                        <h3>Docker</h3>
+                        <p>Conteneurs</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- METHODOLOGIE SECTION -->
+        <section class="methodologie-section">
+            <div class="container">
+                <h2 class="section-title">Méthodologie</h2>
+                <div class="methodologie-grid">
+                    <div class="methodologie-item">
+                        <div class="methodologie-number">1</div>
+                        <h3>Cadrage</h3>
+                        <p>Analyse des besoins et choix techniques</p>
+                    </div>
+                    <div class="methodologie-item">
+                        <div class="methodologie-number">2</div>
+                        <h3>Développement</h3>
+                        <p>Sprints courts, tests automatisés</p>
+                    </div>
+                    <div class="methodologie-item">
+                        <div class="methodologie-number">3</div>
+                        <h3>Recette</h3>
+                        <p>Tests utilisateurs, validation</p>
+                    </div>
+                    <div class="methodologie-item">
+                        <div class="methodologie-number">4</div>
+                        <h3>Production</h3>
+                        <p>Déploiement, monitoring</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAS CLIENTS SECTION -->
+        <section class="cas-clients-section">
+            <div class="container">
+                <h2 class="section-title">Cas clients</h2>
+                <div class="cas-clients-grid">
+                    <div class="cas-client-card">
+                        <div class="cas-client-icon"><i class="fas fa-store"></i></div>
+                        <div class="cas-client-content">
+                            <h3>Marketplace</h3>
+                            <p>Développement d'une place de marché B2B</p>
+                            <span class="cas-client-tag">Web</span>
+                        </div>
+                    </div>
+                    <div class="cas-client-card">
+                        <div class="cas-client-icon"><i class="fas fa-heartbeat"></i></div>
+                        <div class="cas-client-content">
+                            <h3>Santé</h3>
+                            <p>Application mobile de suivi médical</p>
+                            <span class="cas-client-tag">Mobile</span>
+                        </div>
+                    </div>
+                    <div class="cas-client-card">
+                        <div class="cas-client-icon"><i class="fas fa-building"></i></div>
+                        <div class="cas-client-content">
+                            <h3>ERP sur mesure</h3>
+                            <p>Logiciel de gestion d'entreprise</p>
+                            <span class="cas-client-tag">Logiciel</span>
+                        </div>
+                    </div>
+                    <div class="cas-client-card">
+                        <div class="cas-client-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="cas-client-content">
+                            <h3>Migration cloud</h3>
+                            <p>Migration vers microservices AWS</p>
+                            <span class="cas-client-tag">Cloud</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Vous avez un projet ?</h2>
+                <p>Étude gratuite de votre besoin</p>
+                <a href="contact.html" class="cta-button">Demander un devis</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo"><a href="index.html">La Passerelle</a></div>
+                    <p>ESN de référence depuis 2018.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Expertises</h4>
+                    <ul class="footer-links">
+                        <li><a href="expertise-reseaux.html">Réseaux</a></li>
+                        <li><a href="expertise-donnees.html">Analyse données</a></li>
+                        <li><a href="expertise-programmation.html">Programmation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Entreprise</h4>
+                    <ul class="footer-links">
+                        <li><a href="presentation.html">Présentation</a></li>
+                        <li><a href="actualites.html">Actualités</a></li>
+                        <li><a href="recrutement.html">Recrutement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Paris</p>
+                    <p><i class="fas fa-phone-alt"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-envelope"></i> contact@groupe-passerelle.fr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 La Passerelle</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Burger
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('nav');
+        const navLinks = document.querySelectorAll('.nav-list a');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            const icon = burger.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const icon = burger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Recrutement · La Passerelle ESN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a192f;
+            --primary-light: #112240;
+            --secondary: #64ffda;
+            --secondary-light: #9efff0;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #0a192f;
+            --gray: #8892b0;
+            --gray-light: #ccd6f6;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== TYPOGRAPHIE MOBILE FIRST ========== */
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.3rem; }
+        p { font-size: 1rem; }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        @media (min-width: 768px) {
+            .section-title::after {
+                width: 80px;
+                height: 4px;
+            }
+        }
+
+        /* ========== HEADER MOBILE FIRST ========== */
+        .header {
+            background: rgba(10, 25, 47, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (min-width: 768px) {
+            .logo a {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .logo a {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* MENU BURGER - VERSION MOBILE */
+        .burger {
+            display: block;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .burger {
+                display: none;
+            }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(10, 25, 47, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 5rem 1.5rem 2rem;
+            transition: 0.3s ease-in-out;
+            z-index: 1000;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .nav.active {
+            right: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .nav {
+                position: static;
+                width: auto;
+                height: auto;
+                max-width: none;
+                background: transparent;
+                backdrop-filter: none;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-list {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+
+        .nav-list a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(100,255,218,0.1);
+        }
+
+        .nav-list a.active {
+            color: var(--secondary);
+        }
+
+        @media (min-width: 1024px) {
+            .nav-list a {
+                border-bottom: none;
+                padding: 0.3rem 0;
+            }
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            background: linear-gradient(135deg, #0a192f 0%, #1e3a5f 100%);
+            padding: 3rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        @media (min-width: 768px) {
+            .page-hero {
+                padding: 4rem 0;
+            }
+        }
+
+        .page-hero h1 {
+            margin-bottom: 0.8rem;
+        }
+
+        .page-hero p {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        @media (min-width: 768px) {
+            .page-hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ========== INTRO SECTION ========== */
+        .intro-section {
+            padding: 3rem 0;
+            text-align: center;
+            background: var(--light);
+        }
+
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-text h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro-text p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .intro-text p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ========== AVANTAGES SECTION ========== */
+        .avantages-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: white;
+        }
+
+        .avantages-section .section-title {
+            color: white;
+        }
+
+        .avantages-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .avantages-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .avantages-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .avantage-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .avantage-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .avantage-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .avantage-card p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* ========== OFFRES SECTION ========== */
+        .offres-section {
+            padding: 3rem 0;
+        }
+
+        .offres-search {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .offres-search {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid var(--gray);
+            border-radius: 50px;
+            overflow: hidden;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 0.7rem 1.2rem;
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .filter-select {
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 50px;
+            font-family: inherit;
+            background: white;
+            min-width: 150px;
+        }
+
+        .offres-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .offres-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .offre-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .offre-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .offre-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .offre-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(100,255,218,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .offre-title h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .offre-location {
+            color: var(--gray);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .offre-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .offre-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .offre-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .offre-date {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .btn-postuler {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-postuler:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ========== CANDIDATURE SPONTANEE ========== */
+        .candidature-section {
+            padding: 3rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .candidature-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .candidature-section p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-candidature {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--secondary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid var(--secondary);
+            transition: var(--transition);
+        }
+
+        .btn-candidature:hover {
+            background: transparent;
+            color: var(--secondary);
+        }
+
+        @media (min-width: 768px) {
+            .btn-candidature {
+                padding: 1rem 2.5rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ========== FOOTER MOBILE FIRST ========== */
+        .footer {
+            background: #0a1a2f;
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1.5fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-about p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .footer h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-contact p {
+            color: var(--gray-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray-light);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">La Passerelle</a>
+            </div>
+            <button class="burger" id="burger" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="presentation.html">Présentation</a></li>
+                    <li><a href="expertise-reseaux.html">Réseaux</a></li>
+                    <li><a href="expertise-donnees.html">Analyse données</a></li>
+                    <li><a href="expertise-programmation.html">Programmation</a></li>
+                    <li><a href="expertise-bdd.html">Bases de données</a></li>
+                    <li><a href="expertise-securite.html">Sécurité</a></li>
+                    <li><a href="actualites.html">Actualités</a></li>
+                    <li><a href="recrutement.html" class="active">Recrutement</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>Rejoignez l'aventure</h1>
+                <p>Plus qu'un emploi, une carrière dans une ESN qui place l'humain et l'excellence au cœur de son projet.</p>
+            </div>
+        </section>
+
+        <!-- INTRO SECTION -->
+        <section class="intro-section">
+            <div class="container intro-text">
+                <h2>Pourquoi nous rejoindre ?</h2>
+                <p>Chez La Passerelle, nous ne recrutons pas seulement des compétences, nous recrutons des passions. Rejoindre notre groupe, c'est intégrer une équipe d'experts bienveillants, travailler sur des projets technologiques d'envergure et bénéficier d'un cadre de travail épanouissant.</p>
+            </div>
+        </section>
+
+        <!-- AVANTAGES SECTION -->
+        <section class="avantages-section">
+            <div class="container">
+                <h2 class="section-title">Nos avantages</h2>
+                <div class="avantages-grid">
+                    <div class="avantage-card">
+                        <div class="avantage-icon"><i class="fas fa-home"></i></div>
+                        <h3>Télétravail</h3>
+                        <p>Jusqu'à 3 jours par semaine</p>
+                    </div>
+                    <div class="avantage-card">
+                        <div class="avantage-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Formation</h3>
+                        <p>Budget formation annuel</p>
+                    </div>
+                    <div class="avantage-card">
+                        <div class="avantage-icon"><i class="fas fa-credit-card"></i></div>
+                        <h3>Titres restaurant</h3>
+                        <p>Carte Swile, 11€/jour</p>
+                    </div>
+                    <div class="avantage-card">
+                        <div class="avantage-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Transport</h3>
+                        <p>Prise en charge 75%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OFFRES SECTION -->
+        <section class="offres-section">
+            <div class="container">
+                <h2 class="section-title">Nos offres d'emploi</h2>
+                
+                <!-- Barre de recherche et filtres -->
+                <div class="offres-search">
+                    <div class="search-box">
+                        <input type="text" placeholder="Rechercher un poste...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <select class="filter-select">
+                        <option>Tous les sites</option>
+                        <option>Paris</option>
+                        <option>Lyon</option>
+                        <option>Bordeaux</option>
+                    </select>
+                </div>
+
+                <!-- Grille des offres -->
+                <div class="offres-grid">
+                    <div class="offre-card">
+                        <div class="offre-header">
+                            <div class="offre-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="offre-title">
+                                <h3>Consultant Cybersécurité</h3>
+                                <div class="offre-location"><i class="fas fa-map-marker-alt"></i> Paris</div>
+                            </div>
+                        </div>
+                        <p class="offre-description">Intervention sur des missions d'audit, déploiement de solutions de sécurité et conseil.</p>
+                        <div class="offre-tags">
+                            <span class="tag">CDI</span>
+                            <span class="tag">Confirmé</span>
+                            <span class="tag">5 ans exp.</span>
+                        </div>
+                        <div class="offre-footer">
+                            <span class="offre-date">Publié le 10/02/2026</span>
+                            <a href="#" class="btn-postuler">Postuler</a>
+                        </div>
+                    </div>
+
+                    <div class="offre-card">
+                        <div class="offre-header">
+                            <div class="offre-icon"><i class="fas fa-code"></i></div>
+                            <div class="offre-title">
+                                <h3>Développeur Full Stack</h3>
+                                <div class="offre-location"><i class="fas fa-map-marker-alt"></i> Lyon</div>
+                            </div>
+                        </div>
+                        <p class="offre-description">Conception et développement d'applications web et mobiles. Stack React/Node.js.</p>
+                        <div class="offre-tags">
+                            <span class="tag">CDI</span>
+                            <span class="tag">3-5 ans</span>
+                            <span class="tag">React</span>
+                        </div>
+                        <div class="offre-footer">
+                            <span class="offre-date">Publié le 08/02/2026</span>
+                            <a href="#" class="btn-postuler">Postuler</a>
+                        </div>
+                    </div>
+
+                    <div class="offre-card">
+                        <div class="offre-header">
+                            <div class="offre-icon"><i class="fas fa-chart-bar"></i></div>
+                            <div class="offre-title">
+                                <h3>Data Scientist</h3>
+                                <div class="offre-location"><i class="fas fa-map-marker-alt"></i> Bordeaux</div>
+                            </div>
+                        </div>
+                        <p class="offre-description">Modélisation statistique, machine learning, développement de solutions IA.</p>
+                        <div class="offre-tags">
+                            <span class="tag">CDI</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">ML</span>
+                        </div>
+                        <div class="offre-footer">
+                            <span class="offre-date">Publié le 05/02/2026</span>
+                            <a href="#" class="btn-postuler">Postuler</a>
+                        </div>
+                    </div>
+
+                    <div class="offre-card">
+                        <div class="offre-header">
+                            <div class="offre-icon"><i class="fas fa-database"></i></div>
+                            <div class="offre-title">
+                                <h3>Administrateur BDD</h3>
+                                <div class="offre-location"><i class="fas fa-map-marker-alt"></i> Paris</div>
+                            </div>
+                        </div>
+                        <p class="offre-description">Gestion et optimisation de bases SQL et NoSQL. Sauvegarde et récupération.</p>
+                        <div class="offre-tags">
+                            <span class="tag">CDI</span>
+                            <span class="tag">Oracle</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <div class="offre-footer">
+                            <span class="offre-date">Publié le 03/02/2026</span>
+                            <a href="#" class="btn-postuler">Postuler</a>
+                        </div>
+                    </div>
+
+                    <div class="offre-card">
+                        <div class="offre-header">
+                            <div class="offre-icon"><i class="fas fa-network-wired"></i></div>
+                            <div class="offre-title">
+                                <h3>Ingénieur Réseaux</h3>
+                                <div class="offre-location"><i class="fas fa-map-marker-alt"></i> Paris</div>
+                            </div>
+                        </div>
+                        <p class="offre-description">Conception et maintenance d'infrastructures réseaux. Cisco, Fortinet.</p>
+                        <div class="offre-tags">
+                            <span class="tag">CDI</span>
+                            <span class="tag">CCNA</span>
+                            <span class="tag">SD-WAN</span>
+                        </div>
+                        <div class="offre-footer">
+                            <span class="offre-date">Publié le 01/02/2026</span>
+                            <a href="#" class="btn-postuler">Postuler</a>
+                        </div>
+                    </div>
+
+                    <div class="offre-card">
+                        <div class="offre-header">
+                            <div class="offre-icon"><i class="fas fa-users"></i></div>
+                            <div class="offre-title">
+                                <h3>Chef de projet</h3>
+                                <div class="offre-location"><i class="fas fa-map-marker-alt"></i> Lyon</div>
+                            </div>
+                        </div>
+                        <p class="offre-description">Pilotage de projets techniques, relation client, coordination d'équipe.</p>
+                        <div class="offre-tags">
+                            <span class="tag">CDI</span>
+                            <span class="tag">Agile</span>
+                            <span class="tag">PMP</span>
+                        </div>
+                        <div class="offre-footer">
+                            <span class="offre-date">Publié le 28/01/2026</span>
+                            <a href="#" class="btn-postuler">Postuler</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CANDIDATURE SPONTANEE -->
+        <section class="candidature-section">
+            <div class="container">
+                <h2>Vous ne trouvez pas votre bonheur ?</h2>
+                <p>Envoyez-nous une candidature spontanée ! Nous sommes toujours à la recherche de talents passionnés.</p>
+                <a href="contact.html" class="btn-candidature">
+                    <i class="fas fa-paper-plane"></i> Candidature spontanée
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo"><a href="index.html">La Passerelle</a></div>
+                    <p>ESN de référence depuis 2018.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Expertises</h4>
+                    <ul class="footer-links">
+                        <li><a href="expertise-reseaux.html">Réseaux</a></li>
+                        <li><a href="expertise-donnees.html">Analyse données</a></li>
+                        <li><a href="expertise-programmation.html">Programmation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Entreprise</h4>
+                    <ul class="footer-links">
+                        <li><a href="presentation.html">Présentation</a></li>
+                        <li><a href="actualites.html">Actualités</a></li>
+                        <li><a href="recrutement.html">Recrutement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Paris</p>
+                    <p><i class="fas fa-phone-alt"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-envelope"></i> contact@groupe-passerelle.fr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 La Passerelle</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Burger
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('nav');
+        const navLinks = document.querySelectorAll('.nav-list a');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            const icon = burger.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const icon = burger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Simulation de recherche (pour l'exemple)
+        const searchInput = document.querySelector('.search-box input');
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                // Ici on pourrait filtrer les offres
+                console.log('Recherche :', this.value);
+            });
+        }
+
+        const filterSelect = document.querySelector('.filter-select');
+        if (filterSelect) {
+            filterSelect.addEventListener('change', function() {
+                console.log('Filtre :', this.value);
+            });
+        }
+    </script>
+</body>
+</html>
